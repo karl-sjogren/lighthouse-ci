@@ -159,7 +159,7 @@ declare global {
 
       export interface StorageOptions {
         storageMethod: 'sql' | 'spanner';
-        sqlDialect: 'sqlite' | 'mysql' | 'postgres';
+        sqlDialect: 'sqlite' | 'mysql' | 'postgres' | 'mssql';
         sqlDialectOptions?: {
           socketPath?: string;
           ssl?: {

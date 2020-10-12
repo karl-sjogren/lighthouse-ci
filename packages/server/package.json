@@ -29,6 +29,7 @@
     "express-basic-auth": "^1.2.0",
     "morgan": "^1.9.1",
     "sequelize": "^4.44.3",
+    "tedious": "^5.0.3",
     "umzug": "^2.2.0",
     "uuid": "^3.3.2"
   },
