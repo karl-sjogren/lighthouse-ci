@@ -68,6 +68,7 @@ jobs:
           SA_PASSWORD: mssql123!
         ports:
           - 1433:1433
+        options: --name mssql
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
