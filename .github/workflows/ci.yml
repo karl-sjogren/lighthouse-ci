@@ -84,7 +84,7 @@ jobs:
           echo "::set-env name=CHROME_PATH::$(which google-chrome-stable)"
           echo "::set-env name=POSTGRES_DB_URL::postgres://postgres:postgres@localhost/lighthouse_ci_test"
           echo "::set-env name=MYSQL_DB_URL::mysql://root:mysql@127.0.0.1:33306/lighthouse_ci_test"
-          echo "::set-env name=MSSQL_DB_URL::mssql://sa:Mssql123@127.0.0.1:1433/lighthouse_ci_test"
+          echo "::set-env name=MSSQL_DB_URL::mssql://sa:Mssql123@127.0.0.1/lighthouse_ci_test"
 
           export PGPASSWORD="postgres"
           export MYSQL_PWD="mysql"
