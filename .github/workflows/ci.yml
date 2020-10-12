@@ -90,7 +90,7 @@ jobs:
           export MYSQL_PWD="mysql"
           psql -h localhost -p 5432 -c 'create database lighthouse_ci_test;' -U postgres
           mysql --host=127.0.0.1 --port=33306 -e 'create database lighthouse_ci_test;' -u root
-          docker exec mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Mssql123 -Q 'create database lighthouse_ci_test'
+          docker exec mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Mssql123 -l 60 -Q 'create database lighthouse_ci_test'
 
           google-chrome-stable --version
       - run: yarn
