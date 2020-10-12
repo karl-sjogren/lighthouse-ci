@@ -4,6 +4,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  workflow_dispatch:
 jobs:
   basics:
     name: ${{ matrix.name }}
@@ -60,6 +61,13 @@ jobs:
         ports:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: mssql123!
+        ports:
+          - 1433:1433
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -74,11 +82,13 @@ jobs:
           echo "::set-env name=CHROME_PATH::$(which google-chrome-stable)"
           echo "::set-env name=POSTGRES_DB_URL::postgres://postgres:postgres@localhost/lighthouse_ci_test"
           echo "::set-env name=MYSQL_DB_URL::mysql://root:mysql@127.0.0.1:33306/lighthouse_ci_test"
+          echo "::set-env name=MSSQL_DB_URL::mssql://sa:mssql123!@127.0.0.1:1443/lighthouse_ci_test"
 
           export PGPASSWORD="postgres"
           export MYSQL_PWD="mysql"
           psql -h localhost -p 5432 -c 'create database lighthouse_ci_test;' -U postgres
           mysql --host=127.0.0.1 --port=33306 -e 'create database lighthouse_ci_test;' -u root
+          docker exec -it mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P mssql123! -Q 'create database lighthouse_ci_test'
 
           google-chrome-stable --version
       - run: yarn
