@@ -65,7 +65,8 @@ jobs:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
           ACCEPT_EULA: Y
-          SA_PASSWORD: mssql123!
+          SA_PASSWORD: Mssql123!
+          MSSQL_PID: Developer
         ports:
           - 1433:1433
         options: --name mssql
@@ -83,13 +84,13 @@ jobs:
           echo "::set-env name=CHROME_PATH::$(which google-chrome-stable)"
           echo "::set-env name=POSTGRES_DB_URL::postgres://postgres:postgres@localhost/lighthouse_ci_test"
           echo "::set-env name=MYSQL_DB_URL::mysql://root:mysql@127.0.0.1:33306/lighthouse_ci_test"
-          echo "::set-env name=MSSQL_DB_URL::mssql://sa:mssql123!@127.0.0.1:1433/lighthouse_ci_test"
+          echo "::set-env name=MSSQL_DB_URL::mssql://sa:Mssql123!@127.0.0.1:1433/lighthouse_ci_test"
 
           export PGPASSWORD="postgres"
           export MYSQL_PWD="mysql"
           psql -h localhost -p 5432 -c 'create database lighthouse_ci_test;' -U postgres
           mysql --host=127.0.0.1 --port=33306 -e 'create database lighthouse_ci_test;' -u root
-          docker exec mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P mssql123! -Q 'create database lighthouse_ci_test'
+          docker exec mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Mssql123! -Q 'create database lighthouse_ci_test'
 
           google-chrome-stable --version
       - run: yarn
